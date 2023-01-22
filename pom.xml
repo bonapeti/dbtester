@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
-	<groupId>bonapeti</groupId>
-	<artifactId>db_test_parent</artifactId>
+	<groupId>bonapeti.dbtester</groupId>
+	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Database Test Parent</name>
     <packaging>pom</packaging>
@@ -20,6 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<modules>
+		<module>common</module>
         <module>writer</module>
         <module>reader</module>
     </modules>

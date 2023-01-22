@@ -8,15 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
-	<artifactId>writer</artifactId>
-	<name>Database Writer</name>
+	<artifactId>common</artifactId>
+	<name>Database Test Common</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>bonapeti.dbtester</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+	
 
 </project>

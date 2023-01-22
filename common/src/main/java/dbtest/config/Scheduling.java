@@ -1,21 +1,17 @@
-package db_test_writer;
+package dbtest.config;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
@@ -25,15 +21,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
-@EnableScheduling
+
+@Configuration
 @RestController
 @RequestMapping(path = "/scheduling", produces = "application/json")
-public class Writer implements SchedulingConfigurer {
-
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Writer.class, args);
-	}
+public class Scheduling implements SchedulingConfigurer {
+	
+	private static final Logger log = LoggerFactory.getLogger(Scheduling.class);
 	
 	private long delayInSeconds = 5;
 	
@@ -57,14 +51,6 @@ public class Writer implements SchedulingConfigurer {
 		return this.delayInSeconds;
 	}
 	
-	private static final Logger log = LoggerFactory.getLogger(Writer.class);
-
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
-	public void updateDatabase() {
-		log.debug("Update database at {}", dateFormat.format(new Date()));
-	}
-	
 	@Bean
     public Executor taskExecutor() {
 		ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
@@ -80,7 +66,7 @@ public class Writer implements SchedulingConfigurer {
           new Runnable() {
               @Override
               public void run() {
-            	  updateDatabase();
+            	  log.info("Run schedule");
               }
           },
           new Trigger() {
@@ -96,5 +82,6 @@ public class Writer implements SchedulingConfigurer {
           }
         );
 	}
-
+	
+	
 }
